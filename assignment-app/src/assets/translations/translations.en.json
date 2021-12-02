@@ -1,0 +1,7 @@
+{
+    "mypage": {
+      "title": "Assignment with parameter: {{title}}",
+      "languageChange": "Language change",
+      "noParam": "Translation without any parameters"
+    }
+}

@@ -1,0 +1,14 @@
+<div *ngIf="ready" class="container assignment-my-page">
+  <div class="row">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" name="translate" [(ngModel)]="languageChange"  (ngModelChange)="onLanguageChange()">
+        <label class="form-check-label">{{ 'mypage.languageChange' | assignmentTranslate }}</label>
+    </div>
+  </div>
+  <div class="row">
+      <div>
+        <h1>{{ 'mypage.title' | assignmentTranslate: {title: 'title'} }}</h1>
+        <h2>{{ 'mypage.noParam' | assignmentTranslate }}</h2>
+      </div>
+    </div>
+</div>

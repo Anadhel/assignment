@@ -1,0 +1,7 @@
+{
+    "mypage": {
+      "title": "Zadanie z paramterem {{title}}",
+      "languageChange": "Zmiana języka",
+      "noParam": "Tłumaczenie bez parametru"
+    }
+}
