@@ -7,7 +7,7 @@ import { AssignmentTranslationsService } from '../data/services/assignment-trans
   styleUrls: ['./assignment-mypage.component.scss']
 })
 export class AssignmentMyPageComponent implements OnInit{
-  languageCode: string = 'en'
+  languageCode: string = 'en';
   languageChange: boolean = false;
   ready: boolean = false;
 

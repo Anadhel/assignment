@@ -7,7 +7,7 @@ export class AssignmentTranslationsPipe implements PipeTransform {
 
   constructor(private assignmentTranslationsService: AssignmentTranslationsService) {}
 
-  transform(value: string, parameter?: any) {
+  transform(value: string, parameter?: {[key: string]: string}) {
     return this.assignmentTranslationsService.getTranslation(value.toString(), parameter);
   }
 }

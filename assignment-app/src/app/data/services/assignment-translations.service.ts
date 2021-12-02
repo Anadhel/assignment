@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, Subject, tap } from 'rxjs';
+import { Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,17 +10,10 @@ export class AssignmentTranslationsService {
   dataReady$: Subject<boolean> = new Subject<boolean>();
 
   languageCode: string = 'en';
-  private _currentTranslations: any;
-
-  set currentTranslations(translations: any) {
-    this._currentTranslations = translations;
-  }
-
-  get currentTranslations(): any {
-    return this._currentTranslations;
-  }
+  private currentTranslations: any = {};
 
   constructor(private http: HttpClient) {
+    this.changeLanguage(this.languageCode);
   }
 
   changeLanguage(languageCode: string) {
@@ -28,11 +21,11 @@ export class AssignmentTranslationsService {
     this.getTranslations();
   }
 
-  getTranslation(key: string, parameter?: any): string {
+  getTranslation(key: string, parameter?: {[key: string]: string}): string {
       const translationKeys = key.split('.');
       const parameterKey = parameter? Object.keys(parameter)[0] : null;
       let translation = this.findTranslationByKeys(translationKeys);
-      if(parameterKey) {
+      if(parameterKey && parameter) {
         translation = translation.replaceAll(`{{${parameterKey}}}`, parameter[parameterKey]);
       }
       return translation;
@@ -49,15 +42,7 @@ export class AssignmentTranslationsService {
   }
 
   findTranslationByKeys(keys: string[]): string {
-    let result: any = null;
-    keys.forEach(key => {
-      if(result === null) {
-        result = this.currentTranslations[key];
-      } else {
-        result = result[key];
-      }
-    });
-    return result;
+    return keys.reduce((obj, key) => obj[key], this.currentTranslations);
   }
 
 }
