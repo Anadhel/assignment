@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, tap } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -23,10 +23,9 @@ export class AssignmentTranslationsService {
 
   getTranslation(key: string, parameter?: {[key: string]: string}): string {
       const translationKeys = key.split('.');
-      const parameterKey = parameter? Object.keys(parameter)[0] : null;
       let translation = this.findTranslationByKeys(translationKeys);
-      if(parameterKey && parameter) {
-        translation = translation.replaceAll(`{{${parameterKey}}}`, parameter[parameterKey]);
+      if(parameter) {
+        translation = translation.replaceAll(/{{(\w+)}}/g, (fullMatch, keyMatch) => parameter[keyMatch]);
       }
       return translation;
   }
